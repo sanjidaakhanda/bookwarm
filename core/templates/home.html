@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+ <div class="flex justify-center items-center mt-5 mb-10 p-5">
+        <div class="">
+            <h2 class="font-bold text-center text-2xl text-white-700 hover:text-pink-700 hover:text-3xl my-4">BOOK WARM</h2>
+            <p class="text-lg my-2 ">Welcome to the Book Warm Library Management system, where the love for books meets efficient organization. Our library is designed to provide a warm and inviting space for book enthusiasts to explore, borrow, and engage with a diverse collection of literary works.<br>Our library management system offers a user-friendly interface, making it easy for members to search for books, check availability, and browse through detailed book descriptions. </p>
+
+    
+            <div class="mt-4">
+                <button class="bg-purple-700 text-black font-semibold px-4 py-2 rounded hover:bg-pink-700">Borrow Now</button>
+                <button class="bg-pink-700 text-black font-semibold px-4 py-2 rounded mx-2 hover:bg-purple-700">Explore More</button>
+            </div>
+            
+        </div>
+        <div class="w-full">
+            <img src="{% static 'images/library.jpg' %}" alt="">
+        </div>
+    </div>
+<div class="flex">
+    <div class="w-1/4 h-screen p-5">
+        <h4 class="font-semibold text-xl my-2 text-pink-700">Filter By Category:</h4>
+        {% for category in categories %}
+            <a class="font-medium text-lg block text-dark-700 hover:text-pink-700 hover:text-xl" href="{% url "category_wise_book" category.slug %}">{{category}}</a>
+        {% endfor %}
+    </div>
+    <div class="w-3/4 p-5">
+        <h4 class="font-semibold text-xl text-pink-700 my-2 p-5">Result Founds: {{books|length}}</h4>
+        {% if books|length == 0 %}
+            <div class="flex items-center justify-center bg-red-200 rounded md:px-8 py-4 h-screen">
+                <h1 class="text-4xl font-bold text-dark-500">No book found!!!</h1>
+            </div>
+            {% else %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+            {% for book in books %}
+                <div class="card bg-pink-100 text-black shadow-xl">
+                    
+                    {% if book.image %}
+                    <figure><img src="{{book.image.url}}" alt="Book" /></figure>
+                {% else %}
+                    
+                    <figure><img src="{% static 'path/to/placeholder-image.jpg' %}" alt="No Image" /></figure>
+                {% endif %}
+                    <div class="card-body">
+                        <h2 class="card-title">{{book.book_name}}</h2>
+                        <p>{{book.book_detail|truncatewords:10}}</p>
+                        <div class="card-actions justify-end">
+                        <a href="{% url "details" book.id %}" class="btn btn-pink text-pink-700 font-semibold">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        </div>
+    </div>
+</div>
+
+
+    
+{% endblock content %}
