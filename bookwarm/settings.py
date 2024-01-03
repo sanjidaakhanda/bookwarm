@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-#l&&$dlqo0hb@jkaj2l2=bt#2h=w%0dl0*a(*7$lzwn(4n%n4a
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
+CSRF_TRUSTED_ORIGINS = ['https://bookwarm1.onrender.com']
 
 # Application definition
 
